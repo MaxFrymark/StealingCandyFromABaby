@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+    [SerializeField] Rigidbody2D playerRigidBody;
+    [SerializeField] Animator animator;
+
+    float playerSpeed = 5;
+
+    private void Update()
+    {
+        if(playerRigidBody.velocity != Vector2.zero)
+        {
+            animator.SetBool("isWalking", true);
+            if(playerRigidBody.velocity.x > 0)
+            {
+                transform.localScale = new Vector2(1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector2(-1, 1);
+            }
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+    }
+
+    public void Move(int direction)
+    {
+        playerRigidBody.velocity = new Vector2(direction * playerSpeed, 0);
+    }
+
+    public void Stop()
+    {
+        playerRigidBody.velocity = Vector2.zero;
+    }
+}
