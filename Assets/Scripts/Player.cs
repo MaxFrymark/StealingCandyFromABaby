@@ -2,40 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    [SerializeField] Rigidbody2D playerRigidBody;
-    [SerializeField] Animator animator;
+    private List<Interactable> interactables = new List<Interactable>();
+    private Interactable currentInteractable;
 
-    float playerSpeed = 5;
-
-    private void Update()
+    protected override void Update()
     {
-        if(playerRigidBody.velocity != Vector2.zero)
+        base.Update();
+        if(interactables.Count > 0)
         {
-            animator.SetBool("isWalking", true);
-            if(playerRigidBody.velocity.x > 0)
+            SetCurrentInteractable();
+        }
+
+
+    }
+
+    private void SetCurrentInteractable()
+    {
+        if(interactables.Count == 1)
+        {
+            currentInteractable = interactables[0];
+            currentInteractable.HighlightInteractable();
+        }
+
+        else if(interactables.Count > 1)
+        {
+            currentInteractable = FindClosestInteracable();
+            currentInteractable.HighlightInteractable();
+        }
+    }
+
+    private Interactable FindClosestInteracable()
+    {
+        Interactable closestInteractable = null;
+        foreach(Interactable interactable in interactables)
+        {
+            if(closestInteractable == null)
             {
-                transform.localScale = new Vector2(1, 1);
+                closestInteractable = interactable;
             }
             else
             {
-                transform.localScale = new Vector2(-1, 1);
+                if(Vector2.Distance(transform.position, interactable.transform.position) < Vector2.Distance(transform.position, closestInteractable.transform.position))
+                {
+                    closestInteractable.RemoveHighlight();
+                    closestInteractable = interactable;
+                }
             }
         }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
+
+        return closestInteractable;
     }
 
-    public void Move(int direction)
+    public void AddInteractableToList(Interactable interactable)
     {
-        playerRigidBody.velocity = new Vector2(direction * playerSpeed, 0);
+        interactables.Add(interactable);
     }
 
-    public void Stop()
+    public void RemoveInteractableFromList(Interactable interactable)
     {
-        playerRigidBody.velocity = Vector2.zero;
+        interactables.Remove(interactable);
     }
 }
