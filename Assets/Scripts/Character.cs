@@ -6,40 +6,45 @@ public abstract class Character : MonoBehaviour
 {
     [SerializeField] Rigidbody2D playerRigidBody;
     [SerializeField] Animator animator;
-    [SerializeField] float playerSpeed;
+    [SerializeField] float walkSpeed;
+
+    int direction;
+    bool isMoving;
 
     protected virtual void Update()
     {
+        if (isMoving)
+        {
+            playerRigidBody.velocity = new Vector2(direction * walkSpeed, 0);
+        }
         HandleWalkingAnimation();
     }
 
     public void Move(int direction)
     {
-        playerRigidBody.velocity = new Vector2(direction * playerSpeed, 0);
+        isMoving = true;
+        this.direction = direction;
     }
 
     public void Stop()
     {
+        isMoving = false;
         playerRigidBody.velocity = Vector2.zero;
     }
 
     private void HandleWalkingAnimation()
     {
-        if (playerRigidBody.velocity != Vector2.zero)
+        animator.SetBool("isWalking", isMoving);
+
+        if (playerRigidBody.velocity.x > 0)
         {
-            animator.SetBool("isWalking", true);
-            if (playerRigidBody.velocity.x > 0)
-            {
-                transform.localScale = new Vector2(1, 1);
-            }
-            else
-            {
-                transform.localScale = new Vector2(-1, 1);
-            }
+            transform.localScale = new Vector2(1, 1);
         }
-        else
+        else if (playerRigidBody.velocity.x < 0)
         {
-            animator.SetBool("isWalking", false);
+            transform.localScale = new Vector2(-1, 1);
         }
     }
+
+    
 }

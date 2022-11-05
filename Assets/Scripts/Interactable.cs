@@ -29,4 +29,6 @@ public abstract class Interactable : MonoBehaviour
         RemoveHighlight();
         collision.GetComponent<Player>().RemoveInteractableFromList(this);
     }
+
+    public abstract void Interact();
 }

@@ -38,16 +38,19 @@ public class Player : Character
         Interactable closestInteractable = null;
         foreach(Interactable interactable in interactables)
         {
-            if(closestInteractable == null)
+            if (interactable.gameObject.activeInHierarchy)
             {
-                closestInteractable = interactable;
-            }
-            else
-            {
-                if(Vector2.Distance(transform.position, interactable.transform.position) < Vector2.Distance(transform.position, closestInteractable.transform.position))
+                if (closestInteractable == null)
                 {
-                    closestInteractable.RemoveHighlight();
                     closestInteractable = interactable;
+                }
+                else
+                {
+                    if (Vector2.Distance(transform.position, interactable.transform.position) < Vector2.Distance(transform.position, closestInteractable.transform.position))
+                    {
+                        closestInteractable.RemoveHighlight();
+                        closestInteractable = interactable;
+                    }
                 }
             }
         }
@@ -63,5 +66,13 @@ public class Player : Character
     public void RemoveInteractableFromList(Interactable interactable)
     {
         interactables.Remove(interactable);
+    }
+
+    public void Interact()
+    {
+        if(currentInteractable != null && currentInteractable.gameObject.activeInHierarchy)
+        {
+            currentInteractable.Interact();
+        }
     }
 }

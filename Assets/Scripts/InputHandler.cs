@@ -17,6 +17,7 @@ public class InputHandler : MonoBehaviour
 
         inputActions.Player.Move.performed += MovePlayer;
         inputActions.Player.Move.canceled += StopPlayer;
+        inputActions.Player.Interact.performed += PlayerInteract;
     }
 
     private void MovePlayer(InputAction.CallbackContext context)
@@ -30,12 +31,15 @@ public class InputHandler : MonoBehaviour
                 player.Move(1);
                 break;
         }
-        
-        
     }
 
     private void StopPlayer(InputAction.CallbackContext context)
     {
         player.Stop();
+    }
+
+    private void PlayerInteract(InputAction.CallbackContext context)
+    {
+        player.Interact();
     }
 }
