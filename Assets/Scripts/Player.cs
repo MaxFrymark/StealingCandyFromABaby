@@ -14,8 +14,6 @@ public class Player : Character
         {
             SetCurrentInteractable();
         }
-
-
     }
 
     private void SetCurrentInteractable()

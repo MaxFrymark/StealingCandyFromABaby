@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D playerRigidBody;
-    [SerializeField] Animator animator;
+    [SerializeField] protected Rigidbody2D playerRigidBody;
+    [SerializeField] protected Animator animator;
     [SerializeField] float walkSpeed;
 
-    int direction;
+    protected int direction;
     bool isMoving;
 
     protected virtual void Update()
@@ -26,7 +26,7 @@ public abstract class Character : MonoBehaviour
         this.direction = direction;
     }
 
-    public void Stop()
+    public virtual void Stop()
     {
         isMoving = false;
         playerRigidBody.velocity = Vector2.zero;

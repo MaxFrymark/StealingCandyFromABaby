@@ -4,30 +4,36 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] protected SpriteRenderer spriteRenderer;
     
-    [SerializeField] Sprite baseSprite;
-    [SerializeField] Sprite highlightedSprite;
+    [SerializeField] protected Sprite baseSprite;
+    [SerializeField] protected Sprite highlightedSprite;
 
-    public void HighlightInteractable()
+    public virtual void HighlightInteractable()
     {
         spriteRenderer.sprite = highlightedSprite;
     }
 
-    public void RemoveHighlight()
+    public virtual void RemoveHighlight()
     {
         spriteRenderer.sprite = baseSprite;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<Player>().AddInteractableToList(this);
+        if (collision.GetComponent<Player>())
+        {
+            collision.GetComponent<Player>().AddInteractableToList(this);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        RemoveHighlight();
-        collision.GetComponent<Player>().RemoveInteractableFromList(this);
+        if (collision.GetComponent<Player>())
+        {
+            RemoveHighlight();
+            collision.GetComponent<Player>().RemoveInteractableFromList(this);
+        }
     }
 
     public abstract void Interact();
