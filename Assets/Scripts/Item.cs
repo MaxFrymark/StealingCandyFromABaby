@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class Item : Interactable
 {
-    public void PickUp()
-    {
-        gameObject.SetActive(false);
-    }
+    [SerializeField] BoxCollider2D boxCollider;
+    
+    
 
     public override void Interact()
     {
-        gameObject.SetActive(false);
+        spriteRenderer.enabled = false;
+        boxCollider.enabled = false;
+    }
+
+    public Sprite GetSprite()
+    {
+        return baseSprite;
     }
 }

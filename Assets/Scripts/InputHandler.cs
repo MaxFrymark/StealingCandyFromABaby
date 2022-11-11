@@ -18,6 +18,7 @@ public class InputHandler : MonoBehaviour
         inputActions.Player.Move.performed += MovePlayer;
         inputActions.Player.Move.canceled += StopPlayer;
         inputActions.Player.Interact.performed += PlayerInteract;
+        inputActions.Player.SelectItem.performed += SelectItem;
     }
 
     private void MovePlayer(InputAction.CallbackContext context)
@@ -41,5 +42,10 @@ public class InputHandler : MonoBehaviour
     private void PlayerInteract(InputAction.CallbackContext context)
     {
         player.Interact();
+    }
+
+    private void SelectItem(InputAction.CallbackContext context)
+    {
+        player.SelectItem(context.action.GetBindingIndexForControl(context.control));
     }
 }

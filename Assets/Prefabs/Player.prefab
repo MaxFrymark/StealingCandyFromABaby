@@ -138,7 +138,7 @@ Transform:
   m_Children:
   - {fileID: 2056106709609909802}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2056106710832915755
 BoxCollider2D:
@@ -201,4 +201,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRigidBody: {fileID: 2056106710832915754}
   animator: {fileID: 2056106709609909803}
-  playerSpeed: 5
+  walkSpeed: 0
+  spriteRenderer: {fileID: 2056106709609909804}
+  boxCollider: {fileID: 2056106710832915755}

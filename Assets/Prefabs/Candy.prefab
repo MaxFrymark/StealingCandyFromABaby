@@ -101,6 +101,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5766263813252333881}
   baseSprite: {fileID: 115997057, guid: 8d4ec5c74ba5f9a4aa1164d09f450292, type: 3}
   highlightedSprite: {fileID: 1079495386, guid: 8d4ec5c74ba5f9a4aa1164d09f450292, type: 3}
+  boxCollider: {fileID: 6704799091341244497}
 --- !u!61 &6704799091341244497
 BoxCollider2D:
   m_ObjectHideFlags: 0

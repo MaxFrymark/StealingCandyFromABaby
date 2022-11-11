@@ -10,6 +10,7 @@ public class Door : Interactable
 
     [SerializeField] BoxCollider2D doorCollider;
 
+    [SerializeField] AudioClip doorSoundEffect;
     bool doorOpen;
     
     public override void Interact()
@@ -29,6 +30,7 @@ public class Door : Interactable
         if (collision.gameObject.GetComponent<Player>())
         {
             collision.gameObject.GetComponent<Player>().AddInteractableToList(this);
+            HighlightInteractable();
         }
     }
 
@@ -37,6 +39,7 @@ public class Door : Interactable
         if (collision.gameObject.GetComponent<Player>())
         {
             collision.gameObject.GetComponent<Player>().RemoveInteractableFromList(this);
+            RemoveHighlight();
         }
     }
 
@@ -76,6 +79,7 @@ public class Door : Interactable
 
     private void OpenDoor()
     {
+        AudioSource.PlayClipAtPoint(doorSoundEffect, Camera.main.transform.position);
         doorOpen = true;
         spriteRenderer.sprite = baseSprite;
         gameObject.layer = LayerMask.NameToLayer("Interactable");
@@ -84,6 +88,7 @@ public class Door : Interactable
 
     private void CloseDoor()
     {
+        AudioSource.PlayClipAtPoint(doorSoundEffect, Camera.main.transform.position);
         doorOpen = false;
         gameObject.layer = LayerMask.NameToLayer("Walls");
         doorCollider.isTrigger = false;

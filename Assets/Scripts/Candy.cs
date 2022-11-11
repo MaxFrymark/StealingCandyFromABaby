@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Candy : Item
 {
-    private void OnDisable()
+    
+    public override void Interact()
     {
+        base.Interact();
         FindObjectOfType<Baby>().OnCandyStolen();
     }
 }
