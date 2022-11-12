@@ -157,4 +157,30 @@ public class Player : Character
             Inventory.Instance.SelectItem(itemIndex);
         }
     }
+
+    public void UseActiveItem()
+    {
+        if(activeItem != null)
+        {
+            activeItem.UseItem();
+        }
+    }
+
+    public void RemoveItem(Item itemToRemove)
+    {
+        if(itemToRemove == activeItem)
+        {
+            activeItem = null;
+        }
+
+        for(int i = 0; i < inventory.Length; i++)
+        {
+            if(inventory[i] == itemToRemove)
+            {
+                inventory[i] = null;
+                Inventory.Instance.RemoveItemFromSlot(i);
+                return;
+            }
+        }
+    }
 }

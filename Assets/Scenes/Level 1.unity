@@ -3635,9 +3635,17 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1687533957, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
+      propertyPath: soundEffect
+      value: 
+      objectReference: {fileID: 8300000, guid: 3cf04573529ce88468650bd9046a542d, type: 3}
     - target: {fileID: 190069826826725753, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
       propertyPath: m_Name
       value: Rattle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392814523663837875, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8120716757748026558, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
       propertyPath: m_RootOrder

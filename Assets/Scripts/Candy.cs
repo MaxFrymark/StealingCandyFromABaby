@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Candy : Item
 {
-    
+    public override void UseItem()
+    {
+        return;
+    }
+
+
     public override void Interact()
     {
         base.Interact();

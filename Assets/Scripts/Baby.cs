@@ -35,4 +35,9 @@ public class Baby : Resident
         }
         closestParent.HeardBabyCry(transform);
     }
+
+    public void HearRattle(Transform rattle)
+    {
+        transform.localScale = new Vector2(Mathf.Sign(rattle.transform.position.x - transform.position.x), 1);
+    }
 }

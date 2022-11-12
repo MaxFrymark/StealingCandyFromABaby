@@ -25,6 +25,7 @@ public class InventorySlot : MonoBehaviour
 
     public void RemoveItem()
     {
+        selectedItemBorder.gameObject.SetActive(false);
         image.sprite = null;
         image.color = new Color(1, 1, 1, 0);
         isSlotUsed = false;

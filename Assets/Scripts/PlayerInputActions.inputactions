@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Use Item",
+                    "type": "Button",
+                    "id": "90c0cd47-204f-4ee7-bf56-49c789832f76",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -119,6 +128,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae41f053-4588-49b8-a2c0-03e5b1819e9b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

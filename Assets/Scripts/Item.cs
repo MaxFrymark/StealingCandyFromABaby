@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : Interactable
+public abstract class Item : Interactable
 {
-    [SerializeField] BoxCollider2D boxCollider;
-    
-    
+    [SerializeField] protected BoxCollider2D boxCollider;
+
+    public abstract void UseItem();
 
     public override void Interact()
     {
