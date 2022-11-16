@@ -6,16 +6,24 @@ public abstract class Character : MonoBehaviour
 {
     [SerializeField] protected Rigidbody2D playerRigidBody;
     [SerializeField] protected Animator animator;
-    [SerializeField] float walkSpeed;
+    [SerializeField] protected float walkSpeed;
+
+    protected float currentMoveSpeed;
 
     protected int direction;
     bool isMoving;
+
+    protected virtual void Start()
+    {
+        currentMoveSpeed = walkSpeed;
+    }
+
 
     protected virtual void Update()
     {
         if (isMoving)
         {
-            playerRigidBody.velocity = new Vector2(direction * walkSpeed, 0);
+            playerRigidBody.velocity = new Vector2(direction * currentMoveSpeed, 0);
         }
         HandleWalkingAnimation();
     }
@@ -29,10 +37,10 @@ public abstract class Character : MonoBehaviour
     public virtual void Stop()
     {
         isMoving = false;
-        playerRigidBody.velocity = Vector2.zero;
+        playerRigidBody.velocity = Vector3.zero;
     }
 
-    private void HandleWalkingAnimation()
+    protected virtual void HandleWalkingAnimation()
     {
         animator.SetBool("isWalking", isMoving);
 
