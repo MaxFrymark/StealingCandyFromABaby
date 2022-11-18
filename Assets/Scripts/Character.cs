@@ -54,5 +54,13 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    
+    public virtual void StartMoveBetweenFloors()
+    {
+        return;
+    }
+
+    public virtual void EndMoveBetweenFloors()
+    {
+        return;
+    }
 }

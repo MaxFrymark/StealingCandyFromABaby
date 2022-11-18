@@ -5,13 +5,13 @@ using UnityEngine;
 public class Door : Interactable
 {
     
-    [SerializeField] Sprite closedDoor;
+    [SerializeField] protected Sprite closedDoor;
     [SerializeField] Sprite closedDoorHighlighted;
 
-    [SerializeField] BoxCollider2D doorCollider;
+    [SerializeField] protected BoxCollider2D doorCollider;
 
-    [SerializeField] AudioClip doorSoundEffect;
-    bool doorOpen;
+    [SerializeField] protected AudioClip doorSoundEffect;
+    protected bool doorOpen;
     
     public override void Interact()
     {
@@ -77,7 +77,7 @@ public class Door : Interactable
         }
     }
 
-    private void OpenDoor()
+    protected virtual void OpenDoor()
     {
         AudioSource.PlayClipAtPoint(doorSoundEffect, Camera.main.transform.position);
         doorOpen = true;
@@ -86,7 +86,7 @@ public class Door : Interactable
         doorCollider.isTrigger = true;
     }
 
-    private void CloseDoor()
+    protected virtual void CloseDoor()
     {
         AudioSource.PlayClipAtPoint(doorSoundEffect, Camera.main.transform.position);
         doorOpen = false;

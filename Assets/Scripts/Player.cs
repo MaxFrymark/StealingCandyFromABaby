@@ -149,6 +149,16 @@ public class Player : Character
         boxCollider.enabled = true;
     }
 
+    public override void StartMoveBetweenFloors()
+    {
+        HidePlayer();
+    }
+
+    public override void EndMoveBetweenFloors()
+    {
+        RevealPlayer();
+    }
+
     public void SelectItem(int itemIndex)
     {
         if (inventory[itemIndex] != null)
