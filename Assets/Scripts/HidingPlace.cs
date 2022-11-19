@@ -5,6 +5,7 @@ using UnityEngine;
 public class HidingPlace : Interactable
 {
     [SerializeField] Sprite hiddenSprite;
+    [SerializeField] Item hiddenItem = null;
     bool hasHiddenPlayer = false;
 
     public override void Interact()
@@ -38,5 +39,15 @@ public class HidingPlace : Interactable
         {
             base.OnTriggerExit2D(collision);
         }
+    }
+
+    public Item GetHiddenItem()
+    {
+        return hiddenItem;
+    }
+
+    public void RemoveHiddenItem()
+    {
+        hiddenItem = null;
     }
 }

@@ -123,12 +123,25 @@ public class Player : Character
     {
         if (!isHidden)
         {
+            AttemptToPickUpItem();
             HidePlayer();
         }
 
         else
         {
             RevealPlayer();
+        }
+    }
+
+    private void AttemptToPickUpItem()
+    {
+        HidingPlace hidingPlace = currentInteractable as HidingPlace;
+        if(hidingPlace.GetHiddenItem() != null)
+        {
+            currentInteractable = hidingPlace.GetHiddenItem();
+            PickUp();
+            hidingPlace.RemoveHiddenItem();
+            currentInteractable = hidingPlace;
         }
     }
 

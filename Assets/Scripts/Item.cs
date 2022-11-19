@@ -5,6 +5,16 @@ using UnityEngine;
 public abstract class Item : Interactable
 {
     [SerializeField] protected BoxCollider2D boxCollider;
+    [SerializeField] bool isItemHiden;
+
+    private void Start()
+    {
+        if (isItemHiden)
+        {
+            spriteRenderer.enabled = false;
+            boxCollider.enabled = false;
+        }
+    }
 
     public abstract void UseItem();
 
