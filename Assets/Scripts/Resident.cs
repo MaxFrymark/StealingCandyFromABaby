@@ -14,15 +14,15 @@ public abstract class Resident : Character
     protected override void Update()
     {
         base.Update();
-        if (!isDistracted)
-        {
-            WatchForTarget();
-        }
+        WatchForTarget();
     }
 
     protected virtual void WatchForTarget()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0), 10f, targetLayer | wallLayer);
-        isTargetSeen = LayerMask.GetMask(LayerMask.LayerToName(hit.collider.gameObject.layer)) == targetLayer;
+        if (!isDistracted)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0), 10f, targetLayer | wallLayer);
+            isTargetSeen = LayerMask.GetMask(LayerMask.LayerToName(hit.collider.gameObject.layer)) == targetLayer;
+        }
     }
 }

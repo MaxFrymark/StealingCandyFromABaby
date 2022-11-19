@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Parent : Resident
@@ -11,6 +12,10 @@ public class Parent : Resident
 
     [SerializeField] Transform[] waypoints;
     int currentWaypoint = 0;
+    private Transform destination;
+
+    bool changingFloors = false;
+    bool movingToChair = false;
 
     protected override void Start()
     {
@@ -23,12 +28,24 @@ public class Parent : Resident
 
     protected override void Update()
     {
-        if(currentBehavior == ParentBehavior.Patrolling)
+        switch (currentBehavior)
         {
-            CheckIfAtWaypoint();
+            case ParentBehavior.Idle:
+                WatchForTarget();
+                break;
+            case ParentBehavior.Patrolling:
+                CheckIfAtWaypoint();
+                WatchForTarget();
+                break;
+            case ParentBehavior.Chasing:
+                CheckIfAtChasingDestination();
+                break;
         }
-        
-        base.Update();
+        if (isMoving)
+        {
+            playerRigidBody.velocity = new Vector2(direction * currentMoveSpeed, 0);
+        }
+        HandleWalkingAnimation();
     }
 
     private void CheckIfAtWaypoint()
@@ -36,6 +53,14 @@ public class Parent : Resident
         if(Vector2.Distance(transform.position, waypoints[currentWaypoint].position) < 0.1f)
         {
             GetNextWaypoint();
+        }
+    }
+
+    private void CheckIfAtChasingDestination()
+    {
+        if (Vector2.Distance(transform.position,destination.position) < 0.1f)
+        {
+            SetToIdle();
         }
     }
 
@@ -50,14 +75,17 @@ public class Parent : Resident
 
     public void HeardBabyCry(Transform babyTransform)
     {
-        SetToChasing((int)Mathf.Sign(babyTransform.position.x - transform.position.x));
+        destination = babyTransform;
+        SetToChasing(babyTransform);
     }
 
     private void PlayerSpotted()
     {
         if (currentBehavior != ParentBehavior.Chasing && currentBehavior != ParentBehavior.Shouting)
         {
-            SetToChasing((int)transform.localScale.x);
+            Transform playerTransform = FindObjectOfType<Player>().transform;
+            destination = playerTransform;
+            SetToChasing(playerTransform);
         }
     }
 
@@ -82,18 +110,19 @@ public class Parent : Resident
         Stop();
     }
 
-    private void SetToChasing(int direction)
+    private void SetToChasing(Transform position)
     {
-        Move(direction);
         currentBehavior = ParentBehavior.Chasing;
         currentMoveSpeed = runSpeed;
+        HandleParentMove(position);
     }
 
     private void SetToPatrolling()
     {
         currentBehavior = ParentBehavior.Patrolling;
         currentMoveSpeed = walkSpeed;
-        Move((int)Mathf.Sign(waypoints[0].position.x - transform.position.x));
+        destination = waypoints[0];
+        HandleParentMove(waypoints[0]);
     }
 
     private void GetNextWaypoint()
@@ -106,7 +135,8 @@ public class Parent : Resident
         {
             currentWaypoint = 0;
         }
-        Move((int)Mathf.Sign(waypoints[currentWaypoint].position.x - transform.position.x));
+        destination = waypoints[currentWaypoint];
+        HandleParentMove(waypoints[currentWaypoint]);
     }
 
     protected override void HandleWalkingAnimation()
@@ -123,5 +153,98 @@ public class Parent : Resident
         {
             transform.localScale = new Vector2(-1, 1);
         }
+    }
+
+    private bool CheckDestinationLevel(Transform position)
+    {
+        if (position.position.y == transform.position.y)
+        {
+            return true;
+        }
+        else
+        {
+            HandleParentMove(FindStairway());
+            return false;
+        }
+    }
+
+    private Transform FindStairway()
+    {
+        Transform targetStairway = null;
+        foreach(StairwayDoor stairwayDoor in FindObjectsOfType<StairwayDoor>())
+        {
+            if(stairwayDoor.transform.position.y == transform.position.y)
+            {
+                if(stairwayDoor.GetStairwayDirection() == destination.transform.position.y > transform.position.y)
+                {
+                    changingFloors = true;
+                    targetStairway = stairwayDoor.transform;
+                }
+            }
+        }
+        return targetStairway;
+    }
+
+    private void HandleParentMove(Transform position)
+    {
+        if (CheckDestinationLevel(position))
+        {
+            Move(GetDirection(position));
+        }
+    }
+
+    private int GetDirection(Transform position)
+    {
+        return (int)Mathf.Sign(position.position.x - transform.position.x);
+    }
+
+    public bool GetChangingFloors()
+    {
+        return changingFloors;
+    }
+
+    public override void StartMoveBetweenFloors()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public override void EndMoveBetweenFloors()
+    {
+        gameObject.SetActive(true);
+        changingFloors = false;
+        HandleParentMove(destination);
+    }
+
+    public bool NoticeTelevision(Transform television, Transform targetChair)
+    {
+        if (Mathf.Sign(transform.position.x - television.position.x) != transform.localScale.x)
+        {
+            if (currentBehavior == ParentBehavior.Idle || currentBehavior == ParentBehavior.Patrolling)
+            {
+                if (!movingToChair)
+                {
+                    SetToPatrolling();
+                    HandleParentMove(targetChair);
+                    movingToChair = true;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public bool  GetMovingToChair()
+    {
+        return movingToChair;
+    }
+
+    public void SitDown(Transform sitPosition)
+    {
+        SetToIdle();
+        animator.SetTrigger("isSitting");
+        transform.localScale = sitPosition.localScale;
+        transform.position = sitPosition.position;
+        isDistracted = true;
+        //movingToChair = false;
     }
 }

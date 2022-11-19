@@ -11,7 +11,7 @@ public abstract class Character : MonoBehaviour
     protected float currentMoveSpeed;
 
     protected int direction;
-    bool isMoving;
+    protected bool isMoving;
 
     protected virtual void Start()
     {

@@ -24,6 +24,14 @@ public class StairwayDoor : Door
         {
             base.OnTriggerEnter2D(collision);
         }
+        else
+        {
+            Parent parent = characterReadyToChangeFloors as Parent;
+            if (parent.GetChangingFloors())
+            {
+                OpenDoor();
+            }
+        }
     }
 
     protected override void OnTriggerExit2D(Collider2D collision)
@@ -47,7 +55,6 @@ public class StairwayDoor : Door
 
     protected override void CloseDoor()
     {
-        AudioSource.PlayClipAtPoint(doorSoundEffect, Camera.main.transform.position);
         doorCollider.enabled = true;
         doorOpen = false;
     }
@@ -64,11 +71,16 @@ public class StairwayDoor : Door
         if (movingCharacter != null)
         {
             connectedDoor.Interact();
-            movingCharacter.EndMoveBetweenFloors();
             movingCharacter.transform.position = connectedDoor.transform.position;
+            movingCharacter.EndMoveBetweenFloors();
         }
         movingCharacter = null;
         spriteRenderer.sprite = closedDoor;
         CloseDoor();
+    }
+
+    public bool GetStairwayDirection()
+    {
+        return isStairwayUp;
     }
 }
