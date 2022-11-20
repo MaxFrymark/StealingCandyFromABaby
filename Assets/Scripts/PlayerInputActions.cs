@@ -165,6 +165,34 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Scene Controls"",
+            ""id"": ""b887ecb1-3a73-4c02-be50-54d529049814"",
+            ""actions"": [
+                {
+                    ""name"": ""Load Scene"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f1a58ed-c875-4df9-9387-812092637f3a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""aa9c0198-41dc-425e-9cf5-4751459d9cf7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Load Scene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -175,6 +203,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_SelectItem = m_Player.FindAction("SelectItem", throwIfNotFound: true);
         m_Player_UseItem = m_Player.FindAction("Use Item", throwIfNotFound: true);
+        // Scene Controls
+        m_SceneControls = asset.FindActionMap("Scene Controls", throwIfNotFound: true);
+        m_SceneControls_LoadScene = m_SceneControls.FindAction("Load Scene", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -287,11 +318,48 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Scene Controls
+    private readonly InputActionMap m_SceneControls;
+    private ISceneControlsActions m_SceneControlsActionsCallbackInterface;
+    private readonly InputAction m_SceneControls_LoadScene;
+    public struct SceneControlsActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public SceneControlsActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LoadScene => m_Wrapper.m_SceneControls_LoadScene;
+        public InputActionMap Get() { return m_Wrapper.m_SceneControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SceneControlsActions set) { return set.Get(); }
+        public void SetCallbacks(ISceneControlsActions instance)
+        {
+            if (m_Wrapper.m_SceneControlsActionsCallbackInterface != null)
+            {
+                @LoadScene.started -= m_Wrapper.m_SceneControlsActionsCallbackInterface.OnLoadScene;
+                @LoadScene.performed -= m_Wrapper.m_SceneControlsActionsCallbackInterface.OnLoadScene;
+                @LoadScene.canceled -= m_Wrapper.m_SceneControlsActionsCallbackInterface.OnLoadScene;
+            }
+            m_Wrapper.m_SceneControlsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @LoadScene.started += instance.OnLoadScene;
+                @LoadScene.performed += instance.OnLoadScene;
+                @LoadScene.canceled += instance.OnLoadScene;
+            }
+        }
+    }
+    public SceneControlsActions @SceneControls => new SceneControlsActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnSelectItem(InputAction.CallbackContext context);
         void OnUseItem(InputAction.CallbackContext context);
+    }
+    public interface ISceneControlsActions
+    {
+        void OnLoadScene(InputAction.CallbackContext context);
     }
 }

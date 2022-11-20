@@ -143,6 +143,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Scene Controls",
+            "id": "b887ecb1-3a73-4c02-be50-54d529049814",
+            "actions": [
+                {
+                    "name": "Load Scene",
+                    "type": "Button",
+                    "id": "4f1a58ed-c875-4df9-9387-812092637f3a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "aa9c0198-41dc-425e-9cf5-4751459d9cf7",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Load Scene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
