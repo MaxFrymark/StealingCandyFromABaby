@@ -7,8 +7,6 @@ using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
 {
     [SerializeField] Player player;
-    [SerializeField] SceneLoader sceneLoader;
-    [SerializeField] bool allowsPlayerControl;
 
     
     PlayerInputActions inputActions;
@@ -16,22 +14,13 @@ public class InputHandler : MonoBehaviour
     private void Start()
     {
         inputActions = new PlayerInputActions();
+        
         inputActions.Player.Move.performed += MovePlayer;
         inputActions.Player.Move.canceled += StopPlayer;
         inputActions.Player.Interact.performed += PlayerInteract;
         inputActions.Player.SelectItem.performed += SelectItem;
-        inputActions.Player.UseItem.performed += UseItem;
-        inputActions.SceneControls.LoadScene.performed += LoadScene;
-
-        if (allowsPlayerControl)
-        {
-            inputActions.Player.Enable();
-        }
-
-        else
-        {
-            inputActions.SceneControls.Enable();
-        }
+        inputActions.Player.UseItem.performed += UseItem; inputActions.Player.Enable();
+        inputActions.SceneControls.Disable();
     }
 
     private void MovePlayer(InputAction.CallbackContext context)
@@ -67,10 +56,7 @@ public class InputHandler : MonoBehaviour
         player.UseActiveItem();
     }
 
-    private void LoadScene(InputAction.CallbackContext context)
-    {
-        sceneLoader.LoadNewScene();
-    }
+    
 
     public void SwitchToMenuControls()
     {

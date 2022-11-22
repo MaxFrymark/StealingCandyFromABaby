@@ -14,19 +14,19 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadNewScene()
     {
-        if(currentSceneIndex == 0)
+        if (currentSceneIndex == 0)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(1, LoadSceneMode.Single);
         }
 
         else if (currentSceneIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
 
         else
         {
-            SceneManager.LoadScene(currentSceneIndex);
+            SceneManager.LoadScene(currentSceneIndex, LoadSceneMode.Single);
         }
     }
 
@@ -38,6 +38,6 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadingScene()
     {
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(currentSceneIndex++);
+        SceneManager.LoadScene(currentSceneIndex + 1, LoadSceneMode.Single);
     }
 }

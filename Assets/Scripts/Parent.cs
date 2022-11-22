@@ -17,6 +17,8 @@ public class Parent : Resident
     bool changingFloors = false;
     bool movingToChair = false;
 
+    Player player;
+
     protected override void Start()
     {
         if(waypoints.Length > 0)
@@ -24,18 +26,15 @@ public class Parent : Resident
             SetToPatrolling();
         }
         base.Start();
+        player = FindObjectOfType<Player>();
     }
 
     protected override void Update()
     {
         switch (currentBehavior)
         {
-            case ParentBehavior.Idle:
-                WatchForTarget();
-                break;
             case ParentBehavior.Patrolling:
                 CheckIfAtWaypoint();
-                WatchForTarget();
                 break;
             case ParentBehavior.Chasing:
                 CheckIfAtChasingDestination();
@@ -45,6 +44,7 @@ public class Parent : Resident
         {
             playerRigidBody.velocity = new Vector2(direction * currentMoveSpeed, 0);
         }
+        WatchForTarget();
         HandleWalkingAnimation();
     }
 
@@ -60,16 +60,37 @@ public class Parent : Resident
     {
         if (Vector2.Distance(transform.position,destination.position) < 0.1f)
         {
-            SetToIdle();
+            if (isTargetSeen)
+            {
+                WatchForTarget();
+            }
+            else
+            {
+                if(waypoints.Length > 0)
+                {
+                    SetToPatrolling();
+                }
+                else
+                {
+                    SetToIdle();
+                }
+            }
         }
     }
 
     protected override void WatchForTarget()
     {
         base.WatchForTarget();
+
+
+
         if (isTargetSeen)
         {
             PlayerSpotted();
+        }
+        else
+        {
+            isTargetSeen = false;
         }
     }
 
@@ -81,11 +102,10 @@ public class Parent : Resident
 
     private void PlayerSpotted()
     {
-        if (currentBehavior != ParentBehavior.Chasing && currentBehavior != ParentBehavior.Shouting)
+        if (currentBehavior != ParentBehavior.Shouting)
         {
-            Transform playerTransform = FindObjectOfType<Player>().transform;
-            destination = playerTransform;
-            SetToChasing(playerTransform);
+            destination = player.transform;
+            SetToChasing(player.transform);
         }
     }
 
@@ -157,7 +177,9 @@ public class Parent : Resident
 
     private bool CheckDestinationLevel(Transform position)
     {
-        if (position.position.y == transform.position.y)
+        Debug.Log("meow");
+
+        if (Mathf.Abs(transform.position.y - position.position.y) < 0.25)
         {
             return true;
         }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Candy : Item
 {
+    [SerializeField] GameObject levelExit;
+    
     public override void UseItem()
     {
         return;
@@ -13,6 +15,7 @@ public class Candy : Item
     public override void Interact()
     {
         base.Interact();
+        levelExit.SetActive(true);
         FindObjectOfType<Baby>().OnCandyStolen();
     }
 }

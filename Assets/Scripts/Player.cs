@@ -15,6 +15,8 @@ public class Player : Character
     private Item[] inventory = new Item[5];
     Item activeItem;
 
+    
+    
     protected override void Update()
     {
         if (!isHidden)
