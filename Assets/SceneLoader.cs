@@ -14,9 +14,9 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadNewScene()
     {
-        if (currentSceneIndex == 0)
+        if (currentSceneIndex == 0 || currentSceneIndex == 1)
         {
-            SceneManager.LoadScene(1, LoadSceneMode.Single);
+            SceneManager.LoadScene(currentSceneIndex + 1, LoadSceneMode.Single);
         }
 
         else if (currentSceneIndex == SceneManager.sceneCountInBuildSettings - 1)
@@ -37,7 +37,7 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator LoadingScene()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene(currentSceneIndex + 1, LoadSceneMode.Single);
     }
 }

@@ -509,20 +509,23 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 705613294011090458, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1265779447131567808, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
       propertyPath: m_Name
       value: Level
       objectReference: {fileID: 0}
     - target: {fileID: 1551075199487416183, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
       propertyPath: m_text
-      value: 'Steal the candy from baby. Easy Right?
+      value: 'Oops. If the baby sees you steal the candy they will cry
 
-        A and D to move Left
-        and Right
+        which
+        will attract one of their parents.
 
-        Space to pick up
-
-        Escape through the front door'
+        Throw the rattle [E] to get the
+        baby to look the other way.'
       objectReference: {fileID: 0}
     - target: {fileID: 1551075199487416183, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
       propertyPath: m_fontSize
@@ -588,6 +591,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7273946173374425609, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3714003843643538365, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
@@ -637,7 +644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 190069826826725753, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4392814523663837875, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
       propertyPath: m_BodyType

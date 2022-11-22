@@ -121,6 +121,7 @@ public class Parent : Resident
     {
         currentBehavior = ParentBehavior.Shouting;
         animator.SetTrigger("isShouting");
+        player.EndGame();
         Stop();
     }
 
@@ -177,8 +178,6 @@ public class Parent : Resident
 
     private bool CheckDestinationLevel(Transform position)
     {
-        Debug.Log("meow");
-
         if (Mathf.Abs(transform.position.y - position.position.y) < 0.25)
         {
             return true;

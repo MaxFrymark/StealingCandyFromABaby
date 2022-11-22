@@ -63,4 +63,9 @@ public class InputHandler : MonoBehaviour
         inputActions.Player.Disable();
         inputActions.SceneControls.Enable();
     }
+
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
 }

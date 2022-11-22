@@ -6,6 +6,7 @@ public class Player : Character
 {
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] BoxCollider2D boxCollider;
+    [SerializeField] GameObject gameOverScreen;
     
     private List<Interactable> interactables = new List<Interactable>();
     private Interactable currentInteractable;
@@ -207,5 +208,11 @@ public class Player : Character
                 return;
             }
         }
+    }
+
+    public void EndGame()
+    {
+        Stop();
+        gameOverScreen.SetActive(true);
     }
 }
