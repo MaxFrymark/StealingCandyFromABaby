@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1167806960644887241}
   - component: {fileID: 2857680058573930312}
   - component: {fileID: 5914920403159233941}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Television
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,6 +56,9 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 1024
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!212 &1167806960644887241
 SpriteRenderer:
   m_ObjectHideFlags: 0

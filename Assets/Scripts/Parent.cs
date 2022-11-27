@@ -6,8 +6,10 @@ using UnityEngine.UIElements;
 
 public class Parent : Resident
 {
-    private enum ParentBehavior { Idle, Patrolling, Chasing, Shouting }
+    private enum ParentBehavior { Idle, Patrolling, Chasing, Shouting, MovingToDestination }
     ParentBehavior currentBehavior = ParentBehavior.Idle;
+
+    Transform pointOfOrigin;
 
     [SerializeField] float runSpeed;
 
@@ -17,11 +19,14 @@ public class Parent : Resident
 
     bool changingFloors = false;
     bool movingToChair = false;
+    WineGlass wineGlass = null;
 
     Player player;
 
     protected override void Start()
     {
+        pointOfOrigin = Instantiate(new GameObject(), transform.position, Quaternion.identity).transform;
+        
         if(waypoints.Length > 0)
         {
             SetToPatrolling();
@@ -36,6 +41,9 @@ public class Parent : Resident
         {
             case ParentBehavior.Patrolling:
                 CheckIfAtWaypoint();
+                break;
+            case ParentBehavior.MovingToDestination:
+                CheckIfAtMovingDestination();
                 break;
             case ParentBehavior.Chasing:
                 CheckIfAtChasingDestination();
@@ -57,6 +65,33 @@ public class Parent : Resident
         }
     }
 
+    private void CheckIfAtMovingDestination()
+    {
+
+        if (Mathf.Abs(transform.position.x - destination.position.x) < 0.1f)
+        {
+
+            if (wineGlass != null && destination == wineGlass.transform)
+            {
+                Debug.Log("hi");
+
+                DrinkWine();
+            }
+
+            else if (destination == pointOfOrigin)
+            {
+                if(waypoints.Length > 0)
+                {
+                    SetToPatrolling();
+                }
+                else
+                {
+                    SetToIdle();
+                }
+            }
+        }
+    }
+
     private void CheckIfAtChasingDestination()
     {
         if (Vector2.Distance(transform.position,destination.position) < 0.1f)
@@ -73,7 +108,7 @@ public class Parent : Resident
                 }
                 else
                 {
-                    SetToIdle();
+                    SetToMovingToDestination(pointOfOrigin);
                 }
             }
         }
@@ -137,6 +172,8 @@ public class Parent : Resident
     {
         isDistracted = false;
         currentBehavior = ParentBehavior.Chasing;
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isWalking", false);
         currentMoveSpeed = runSpeed;
         HandleParentMove(position);
     }
@@ -148,6 +185,15 @@ public class Parent : Resident
         currentMoveSpeed = walkSpeed;
         destination = waypoints[0];
         HandleParentMove(waypoints[0]);
+    }
+
+    private void SetToMovingToDestination(Transform destination)
+    {
+        isDistracted = false;
+        currentBehavior = ParentBehavior.MovingToDestination;
+        currentMoveSpeed = walkSpeed;
+        this.destination = destination;
+        HandleParentMove(destination);
     }
 
     private void GetNextWaypoint()
@@ -167,7 +213,7 @@ public class Parent : Resident
     protected override void HandleWalkingAnimation()
     {
 
-        animator.SetBool("isWalking", currentBehavior == ParentBehavior.Patrolling);
+        animator.SetBool("isWalking", currentBehavior == ParentBehavior.Patrolling | currentBehavior == ParentBehavior.MovingToDestination);
         animator.SetBool("isRunning", currentBehavior == ParentBehavior.Chasing);
 
         if (playerRigidBody.velocity.x > 0)
@@ -252,8 +298,7 @@ public class Parent : Resident
             {
                 if (!movingToChair)
                 {
-                    //SetToPatrolling();
-                    HandleParentMove(targetChair);
+                    SetToMovingToDestination(targetChair);
                     movingToChair = true;
                     return true;
                 }
@@ -274,11 +319,49 @@ public class Parent : Resident
         transform.localScale = sitPosition.localScale;
         transform.position = sitPosition.position;
         isDistracted = true;
-        //movingToChair = false;
     }
 
     public bool GetIsTargetSeen()
     {
         return isTargetSeen;
+    }
+
+    public void GetWine(WineGlass wine)
+    {
+        if (wineGlass == null)
+        {
+        
+            if (currentBehavior == ParentBehavior.Idle || currentBehavior == ParentBehavior.Patrolling)
+            {
+                if (Mathf.Sign(transform.position.x - wine.transform.position.x) != transform.localScale.x)
+                {
+
+                    wineGlass = wine;
+                    SetToMovingToDestination(wine.transform);
+                }
+
+            }
+        }
+    }
+
+    private void DrinkWine()
+    {
+        SetToIdle();
+        wineGlass.gameObject.SetActive(false);
+        animator.SetTrigger("isDrinking");
+        isDistracted = true;
+    }
+
+    public void StopDrinking()
+    {
+        wineGlass = null;
+        if(waypoints.Length > 0)
+        {
+            SetToPatrolling();
+        }
+        else
+        {
+            SetToMovingToDestination(pointOfOrigin);
+        }
     }
 }

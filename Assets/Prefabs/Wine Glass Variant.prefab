@@ -12,10 +12,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wine Glass Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7217755171865078664, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217755171865078664, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7575977293157782240, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1059640515, guid: b25e8d0ff46bf264389a7ebaca2fefcb, type: 3}
+      objectReference: {fileID: -1606179590, guid: e0e81784c6e42694388bfcf205e633be, type: 3}
     - target: {fileID: 8120716757748026558, guid: 727ef4bdbe8f1f448be77f378fc6b714, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -100,7 +108,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 897679770088155565}
-  baseSprite: {fileID: 1059640515, guid: b25e8d0ff46bf264389a7ebaca2fefcb, type: 3}
-  highlightedSprite: {fileID: 1962323855, guid: b25e8d0ff46bf264389a7ebaca2fefcb, type: 3}
+  baseSprite: {fileID: -1606179590, guid: e0e81784c6e42694388bfcf205e633be, type: 3}
+  highlightedSprite: {fileID: -353398485, guid: e0e81784c6e42694388bfcf205e633be, type: 3}
   boxCollider: {fileID: 107219828622840005}
   isItemHiden: 1
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 256

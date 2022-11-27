@@ -8,6 +8,7 @@ public class Television : Interactable
     [SerializeField] BoxCollider2D televisionBoxCollider;
     [SerializeField] BoxCollider2D chairBoxCollider;
     [SerializeField] LayerMask targetLayer;
+    [SerializeField] LayerMask wallLayer;
     bool isTelevisionOn;
     bool isTelevisionOccupied;
 
@@ -26,7 +27,8 @@ public class Television : Interactable
     {
         if (isTelevisionOn && !isTelevisionOccupied)
         {
-            DistractParent();
+            DistractParent(-1);
+            DistractParent(1);
         }
     }
 
@@ -42,12 +44,12 @@ public class Television : Interactable
         televisionBoxCollider.enabled = false;
     }
 
-    private void DistractParent()
+    private void DistractParent(int direction)
     {
-        RaycastHit2D raycastHit = Physics2D.Linecast(lineStart, lineEnd, targetLayer);
-        if (raycastHit)
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, new Vector2(direction, 0), 10f, wallLayer | targetLayer);
+        if (LayerMask.GetMask(LayerMask.LayerToName(hit2D.collider.gameObject.layer)) == targetLayer)
         {
-            if(raycastHit.collider.GetComponent<Parent>().NoticeTelevision(transform, chairBoxCollider.transform))
+            if (hit2D.collider.GetComponent<Parent>().NoticeTelevision(transform, chairBoxCollider.transform))
             {
                 chairBoxCollider.enabled = true;
             }
