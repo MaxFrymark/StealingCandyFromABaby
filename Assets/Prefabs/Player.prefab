@@ -201,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRigidBody: {fileID: 2056106710832915754}
   animator: {fileID: 2056106709609909803}
-  walkSpeed: 0
+  walkSpeed: 4
   spriteRenderer: {fileID: 2056106709609909804}
   boxCollider: {fileID: 2056106710832915755}
+  gameOverScreen: {fileID: 0}

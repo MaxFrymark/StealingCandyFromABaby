@@ -130,7 +130,9 @@ MonoBehaviour:
   baseSprite: {fileID: 463029984, guid: 81fbdbf89d58ff247a51c98b9c89dacb, type: 3}
   highlightedSprite: {fileID: 1573845856, guid: 81fbdbf89d58ff247a51c98b9c89dacb, type: 3}
   boxCollider: {fileID: 7217755171865078664}
+  isItemHiden: 1
   body: {fileID: 4392814523663837875}
+  soundEffect: {fileID: 8300000, guid: 3cf04573529ce88468650bd9046a542d, type: 3}
 --- !u!61 &7217755171865078664 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 6704799091341244497, guid: fdee2cf4c00d729468c677fcf4797742, type: 3}

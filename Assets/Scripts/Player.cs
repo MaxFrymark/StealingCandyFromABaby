@@ -16,8 +16,15 @@ public class Player : Character
     private Item[] inventory = new Item[5];
     Item activeItem;
 
-    
-    
+    Parent[] parents;
+    bool hasAlreadyWon = false;
+
+    protected override void Start()
+    {
+        base.Start();
+        parents = FindObjectsOfType<Parent>();
+    }
+
     protected override void Update()
     {
         if (!isHidden)
@@ -26,6 +33,10 @@ public class Player : Character
             if (interactables.Count > 0)
             {
                 SetCurrentInteractable();
+            }
+            else
+            {
+                currentInteractable = null;
             }
         }
     }
@@ -124,7 +135,7 @@ public class Player : Character
 
     private void HandleHiding()
     {
-        if (!isHidden)
+        if (!isHidden && !IsPlayerWatched())
         {
             AttemptToPickUpItem();
             HidePlayer();
@@ -134,6 +145,15 @@ public class Player : Character
         {
             RevealPlayer();
         }
+    }
+
+    private bool IsPlayerWatched()
+    {
+        foreach(Parent parent in parents)
+        {
+            if (parent.GetIsTargetSeen()) { return true; }
+        }
+        return false;
     }
 
     private void AttemptToPickUpItem()
@@ -150,6 +170,7 @@ public class Player : Character
 
     private void HidePlayer()
     {
+        transform.position = currentInteractable.transform.position;
         interactables.Clear();
         isHidden = true;
         playerRigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -212,7 +233,15 @@ public class Player : Character
 
     public void EndGame()
     {
-        Stop();
-        gameOverScreen.SetActive(true);
+        if (!hasAlreadyWon)
+        {
+            Stop();
+            gameOverScreen.SetActive(true);
+        }
+    }
+
+    public void SetHasAlreadyWon()
+    {
+        hasAlreadyWon = true;
     }
 }

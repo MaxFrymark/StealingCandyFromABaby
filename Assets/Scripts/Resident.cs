@@ -9,7 +9,7 @@ public abstract class Resident : Character
     [SerializeField] LayerMask targetLayer;
 
     protected bool isDistracted = false;
-    protected bool isTargetSeen;
+    [SerializeField] protected bool isTargetSeen;
 
     protected override void Update()
     {
@@ -22,6 +22,7 @@ public abstract class Resident : Character
         if (!isDistracted)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0), 10f, targetLayer | wallLayer);
+            Debug.DrawLine(transform.position, hit.point, Color.green, 0.1f);
             if (hit)
             {
                 isTargetSeen = LayerMask.GetMask(LayerMask.LayerToName(hit.collider.gameObject.layer)) == targetLayer;

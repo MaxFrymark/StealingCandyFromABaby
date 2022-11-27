@@ -122,9 +122,13 @@ MonoBehaviour:
   playerRigidBody: {fileID: 4380044734742736107}
   animator: {fileID: 4380044734742736105}
   walkSpeed: 2
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
+  isTargetSeen: 0
 --- !u!50 &4380044734742736107
 Rigidbody2D:
   serializedVersion: 4

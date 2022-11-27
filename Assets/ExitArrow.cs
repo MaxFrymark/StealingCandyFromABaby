@@ -10,6 +10,7 @@ public class ExitArrow : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         goodJob.SetActive(true);
+        collision.GetComponent<Player>().SetHasAlreadyWon();
         loader.LoadNextLevel();
     }
 }

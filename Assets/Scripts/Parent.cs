@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Parent : Resident
 {
     private enum ParentBehavior { Idle, Patrolling, Chasing, Shouting }
     ParentBehavior currentBehavior = ParentBehavior.Idle;
 
-    float runSpeed = 6;
+    [SerializeField] float runSpeed;
 
     [SerializeField] Transform[] waypoints;
     int currentWaypoint = 0;
@@ -127,12 +128,14 @@ public class Parent : Resident
 
     private void SetToIdle()
     {
+        isDistracted = false;
         currentBehavior = ParentBehavior.Idle;
         Stop();
     }
 
     private void SetToChasing(Transform position)
     {
+        isDistracted = false;
         currentBehavior = ParentBehavior.Chasing;
         currentMoveSpeed = runSpeed;
         HandleParentMove(position);
@@ -140,6 +143,7 @@ public class Parent : Resident
 
     private void SetToPatrolling()
     {
+        isDistracted = false;
         currentBehavior = ParentBehavior.Patrolling;
         currentMoveSpeed = walkSpeed;
         destination = waypoints[0];
@@ -194,8 +198,11 @@ public class Parent : Resident
         Transform targetStairway = null;
         foreach(StairwayDoor stairwayDoor in FindObjectsOfType<StairwayDoor>())
         {
-            if(stairwayDoor.transform.position.y == transform.position.y)
+            Debug.Log("hi");
+
+            if (Mathf.Abs(transform.position.y - stairwayDoor.transform.position.y) < 0.25)
             {
+                Debug.Log("meow");
                 if(stairwayDoor.GetStairwayDirection() == destination.transform.position.y > transform.position.y)
                 {
                     changingFloors = true;
@@ -208,6 +215,7 @@ public class Parent : Resident
 
     private void HandleParentMove(Transform position)
     {
+
         if (CheckDestinationLevel(position))
         {
             Move(GetDirection(position));
@@ -244,7 +252,7 @@ public class Parent : Resident
             {
                 if (!movingToChair)
                 {
-                    SetToPatrolling();
+                    //SetToPatrolling();
                     HandleParentMove(targetChair);
                     movingToChair = true;
                     return true;
@@ -267,5 +275,10 @@ public class Parent : Resident
         transform.position = sitPosition.position;
         isDistracted = true;
         //movingToChair = false;
+    }
+
+    public bool GetIsTargetSeen()
+    {
+        return isTargetSeen;
     }
 }
