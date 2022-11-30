@@ -25,7 +25,7 @@ public class Door : Interactable
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<Player>())
         {
@@ -41,7 +41,7 @@ public class Door : Interactable
             collision.gameObject.GetComponent<Player>().RemoveInteractableFromList(this);
             RemoveHighlight();
         }
-    }
+    }*/
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -83,7 +83,7 @@ public class Door : Interactable
         doorOpen = true;
         spriteRenderer.sprite = baseSprite;
         gameObject.layer = LayerMask.NameToLayer("Interactable");
-        doorCollider.isTrigger = true;
+        doorCollider.gameObject.SetActive(false);
     }
 
     protected virtual void CloseDoor()
@@ -91,6 +91,6 @@ public class Door : Interactable
         AudioSource.PlayClipAtPoint(doorSoundEffect, Camera.main.transform.position);
         doorOpen = false;
         gameObject.layer = LayerMask.NameToLayer("Walls");
-        doorCollider.isTrigger = false;
+        doorCollider.gameObject.SetActive(true);
     }
 }

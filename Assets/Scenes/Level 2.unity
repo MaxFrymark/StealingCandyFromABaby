@@ -525,7 +525,9 @@ PrefabInstance:
         will attract the closest parent.
 
         Throw the rattle [E] to get the
-        baby to look the other way.'
+        baby to look the other way.
+
+        Select item with number keys.'
       objectReference: {fileID: 0}
     - target: {fileID: 1551075199487416183, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
       propertyPath: m_fontSize
@@ -887,7 +889,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4380044734742736151, guid: 4324407e610e7ac49b240ba2b4993f2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.95
+      value: -0.5151482
       objectReference: {fileID: 0}
     - target: {fileID: 4380044734742736151, guid: 4324407e610e7ac49b240ba2b4993f2e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -942,7 +944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8689868301407571042, guid: 253d81e8aa5892e498f43c7a5a7ac4d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.1
+      value: -3.13
       objectReference: {fileID: 0}
     - target: {fileID: 8689868301407571042, guid: 253d81e8aa5892e498f43c7a5a7ac4d4, type: 3}
       propertyPath: m_LocalPosition.y

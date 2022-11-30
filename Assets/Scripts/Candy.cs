@@ -5,7 +5,13 @@ using UnityEngine;
 public class Candy : Item
 {
     [SerializeField] GameObject levelExit;
-    
+
+    protected override void Start()
+    {
+        description = "You have the candy now get out!";
+        base.Start();
+    }
+
     public override void UseItem()
     {
         return;

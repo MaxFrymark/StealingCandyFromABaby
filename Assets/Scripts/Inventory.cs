@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
 
     [SerializeField] InventorySlot[] inventorySlots;
+    [SerializeField] UpdateMessages updateMessages;
 
     private void Awake()
     {
@@ -40,6 +41,7 @@ public class Inventory : MonoBehaviour
             if (i == inventoryIndex)
             {
                 inventorySlots[inventoryIndex].SelectItem();
+                updateMessages.ChangeMessage(inventorySlots[inventoryIndex].GetItemDescription());
             }
             else
             {

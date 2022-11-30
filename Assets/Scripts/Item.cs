@@ -7,7 +7,9 @@ public abstract class Item : Interactable
     [SerializeField] protected BoxCollider2D boxCollider;
     [SerializeField] bool isItemHiden;
 
-    private void Start()
+    protected string description;
+
+    protected virtual void Start()
     {
         if (isItemHiden)
         {
@@ -27,5 +29,10 @@ public abstract class Item : Interactable
     public Sprite GetSprite()
     {
         return baseSprite;
+    }
+
+    public string GetDescription()
+    {
+        return description;
     }
 }

@@ -3229,6 +3229,7 @@ GameObject:
   - component: {fileID: 1493680819141742634}
   - component: {fileID: 9023305469427060232}
   - component: {fileID: 1551075199487416183}
+  - component: {fileID: 7918529892758187802}
   m_Layer: 5
   m_Name: Messages
   m_TagString: Untagged
@@ -3353,6 +3354,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7918529892758187802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7273946173374425609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82715ebf3092b0d418266716bbba5ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1551075199487416183}
 --- !u!1 &8626705972713845519
 GameObject:
   m_ObjectHideFlags: 0
@@ -4475,6 +4489,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 5846136666599677415, guid: 9242e2a08f6ccda4abf8c22eda68c30d, type: 3}
+      propertyPath: updateMessages
+      value: 
+      objectReference: {fileID: 7918529892758187802}
     - target: {fileID: 5846136666599677415, guid: 9242e2a08f6ccda4abf8c22eda68c30d, type: 3}
       propertyPath: inventorySlots.Array.size
       value: 5

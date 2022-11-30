@@ -8,6 +8,8 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] Image image;
     [SerializeField] Image selectedItemBorder;
 
+    string itemDesription;
+
     
     bool isSlotUsed;
 
@@ -20,6 +22,7 @@ public class InventorySlot : MonoBehaviour
     {
         image.sprite = item.GetSprite();
         image.color = Color.white;
+        itemDesription = item.GetDescription();
         isSlotUsed = true;
     }
 
@@ -42,5 +45,10 @@ public class InventorySlot : MonoBehaviour
     public void UnselectItem()
     {
         selectedItemBorder.gameObject.SetActive(false);
+    }
+
+    public string GetItemDescription()
+    {
+        return itemDesription;
     }
 }

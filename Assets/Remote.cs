@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Remote : Item
 {
+    protected override void Start()
+    {
+        description = "Remote: Turns on nearest TV.";
+        base.Start();
+    }
+
     public override void UseItem()
     {
         TurnOnNearestTV();

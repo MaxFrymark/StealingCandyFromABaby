@@ -12,7 +12,11 @@ public class Rattle : Item
     private float throwSpeed = 4f;
     private bool isThrown;
 
-    
+    protected override void Start()
+    {
+        description = "Rattle: Throw to make the baby look the other way.";
+        base.Start();
+    }
 
 
     public override void UseItem()
