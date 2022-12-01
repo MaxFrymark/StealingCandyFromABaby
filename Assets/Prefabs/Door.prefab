@@ -189,4 +189,4 @@ MonoBehaviour:
   closedDoor: {fileID: -1920872034, guid: 8f4aa70878093fe4bb6c70fd6ef9fc03, type: 3}
   closedDoorHighlighted: {fileID: 753616439, guid: b3059705a690d1a4cb4600485de4f1f5, type: 3}
   doorCollider: {fileID: 3136541866284379321}
-  doorSoundEffect: {fileID: 8300000, guid: 64c759f97e1cda747951ebbeda036bae, type: 3}
+  doorSoundEffect: {fileID: 8300000, guid: cb5415e6e580e294392e138bad09263a, type: 3}

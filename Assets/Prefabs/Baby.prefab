@@ -129,6 +129,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   isTargetSeen: 0
+  cry: {fileID: 8300000, guid: c74a823c39435cb4894e9f2380d95f44, type: 3}
 --- !u!50 &4380044734742736107
 Rigidbody2D:
   serializedVersion: 4

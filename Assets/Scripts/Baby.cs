@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Baby : Resident
 {
-    
+    [SerializeField] AudioClip cry;
 
     public void OnCandyStolen()
     {
         if(isTargetSeen && !isDistracted)
         {
             animator.SetTrigger("isCrying");
+            AudioSource.PlayClipAtPoint(cry, Camera.main.transform.position);
             AlertClosestParent();
         }
     }

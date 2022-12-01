@@ -104,7 +104,8 @@ MonoBehaviour:
   closedDoor: {fileID: 858021930, guid: b7b5c493448922449aeb5debbd0d7ee5, type: 3}
   closedDoorHighlighted: {fileID: -103983380, guid: b7b5c493448922449aeb5debbd0d7ee5, type: 3}
   doorCollider: {fileID: 5638408761484342010}
-  doorSoundEffect: {fileID: 8300000, guid: 64c759f97e1cda747951ebbeda036bae, type: 3}
+  doorSoundEffect: {fileID: 8300000, guid: cb5415e6e580e294392e138bad09263a, type: 3}
+  connectedDoor: {fileID: 0}
 --- !u!61 &5638408761484342010
 BoxCollider2D:
   m_ObjectHideFlags: 0
