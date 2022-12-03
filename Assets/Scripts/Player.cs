@@ -19,6 +19,8 @@ public class Player : Character
     Parent[] parents;
     bool hasAlreadyWon = false;
 
+    bool isMovingBetweenFloors = false;
+
     protected override void Start()
     {
         base.Start();
@@ -71,7 +73,7 @@ public class Player : Character
                 }
                 else
                 {
-                    if (Vector2.Distance(transform.position, interactable.transform.position) < Vector2.Distance(transform.position, closestInteractable.transform.position))
+                    if (transform.position.x - interactable.transform.position.x < transform.position.x - closestInteractable.transform.position.x)
                     {
                         closestInteractable.RemoveHighlight();
                         closestInteractable = interactable;
@@ -188,12 +190,19 @@ public class Player : Character
 
     public override void StartMoveBetweenFloors()
     {
+        isMovingBetweenFloors = true;
         HidePlayer();
     }
 
     public override void EndMoveBetweenFloors()
     {
+        isMovingBetweenFloors = false;
         RevealPlayer();
+    }
+
+    public bool GetIsMovingBetweenFloors()
+    {
+        return isMovingBetweenFloors;
     }
 
     public void SelectItem(int itemIndex)

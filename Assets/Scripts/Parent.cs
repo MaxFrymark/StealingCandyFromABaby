@@ -100,6 +100,7 @@ public class Parent : Resident
             {
                 WatchForTarget();
             }
+            
             else
             {
                 if(waypoints.Length > 0)
@@ -112,13 +113,16 @@ public class Parent : Resident
                 }
             }
         }
+
+        else if (player.GetIsMovingBetweenFloors())
+        {
+            changingFloors = true;
+        }
     }
 
     protected override void WatchForTarget()
     {
         base.WatchForTarget();
-
-
 
         if (isTargetSeen)
         {
@@ -147,8 +151,9 @@ public class Parent : Resident
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isTargetSeen && collision.GetComponent<Player>())
+        if (!isDistracted && collision.GetComponent<Player>())
         {
+            transform.localScale = new Vector2(Mathf.Sign(collision.transform.position.x - transform.position.x), 1);
             SetToShouting();
         }
     }
@@ -244,11 +249,9 @@ public class Parent : Resident
         Transform targetStairway = null;
         foreach(StairwayDoor stairwayDoor in FindObjectsOfType<StairwayDoor>())
         {
-            Debug.Log("hi");
 
             if (Mathf.Abs(transform.position.y - stairwayDoor.transform.position.y) < 0.25)
             {
-                Debug.Log("meow");
                 if(stairwayDoor.GetStairwayDirection() == destination.transform.position.y > transform.position.y)
                 {
                     changingFloors = true;

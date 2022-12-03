@@ -160,11 +160,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4380044734742736151, guid: 4324407e610e7ac49b240ba2b4993f2e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.13
+      value: -3.58
       objectReference: {fileID: 0}
     - target: {fileID: 4380044734742736151, guid: 4324407e610e7ac49b240ba2b4993f2e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4534307
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4380044734742736151, guid: 4324407e610e7ac49b240ba2b4993f2e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -283,7 +283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8689868301407571042, guid: 253d81e8aa5892e498f43c7a5a7ac4d4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4534307
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8689868301407571042, guid: 253d81e8aa5892e498f43c7a5a7ac4d4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1320,6 +1320,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2973440999783651193, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
       propertyPath: m_Tiles.Array.data[70].second.m_TileSpriteIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714003843643538365, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714003843643538365, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714003843643538365, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714003843643538365, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714003843643538365, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714003843643538365, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
+      propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5777695539349969599, guid: 095b630a414ab6d4abe423c1f95e7545, type: 3}
